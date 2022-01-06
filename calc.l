@@ -14,6 +14,8 @@ operar          "operar"
 parapertura     "("
 parcierre       ")"
 operador        "+"|"-"|"*"
+ptcoma          ";"
+
 
 %%
 
@@ -25,6 +27,7 @@ operador        "+"|"-"|"*"
 {parapertura}   {return TOK_PARAPERTURA;}
 {parcierre}     {return TOK_PARCIERRE;}
 {operador}      {return yytext[0];}
+{ptcoma}      {return TOK_PTCOMA;}
 .               {printf("ERROR LEXICO\n");
                  return TOK_ERROR;}
 

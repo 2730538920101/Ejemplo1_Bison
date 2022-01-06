@@ -52,7 +52,8 @@ extern int yydebug;
     TOK_ENTERO = 258,
     TOK_OPERAR = 259,
     TOK_PARAPERTURA = 260,
-    TOK_PARCIERRE = 261
+    TOK_PARCIERRE = 261,
+    TOK_PTCOMA = 262
   };
 #endif
 /* Tokens.  */
@@ -60,16 +61,17 @@ extern int yydebug;
 #define TOK_OPERAR 259
 #define TOK_PARAPERTURA 260
 #define TOK_PARCIERRE 261
+#define TOK_PTCOMA 262
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 4 "calc.y"
+#line 5 "calc.y"
 
     int entero;
 
-#line 73 "y.tab.h"
+#line 75 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

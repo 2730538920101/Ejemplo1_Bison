@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+extern FILE *yyin;
 %}
 %union{
     int entero;
@@ -8,6 +9,7 @@
 %token TOK_OPERAR
 %token TOK_PARAPERTURA
 %token TOK_PARCIERRE
+%token TOK_PTCOMA
 
 %start inicio
 
@@ -17,8 +19,16 @@
 %type <entero> expresion_entero
 
 %%
-inicio:     TOK_OPERAR TOK_PARAPERTURA expresion TOK_PARCIERRE '\n'{printf("ANALISIS REALIZADO CON EXITO");}
-            ;
+inicio:   instrucciones { return 0;}
+    ;
+
+instrucciones: instruccion instrucciones
+        | instruccion
+    ;
+
+instruccion:    TOK_OPERAR TOK_PARAPERTURA expresion TOK_PARCIERRE TOK_PTCOMA { }
+  ;  
+
 
 expresion:          expresion_entero{printf("EL RESULTADO DE UNA OPERACION CON ENTEROS ES: %d\n",$1);}
                     ;
@@ -33,7 +43,10 @@ expresion_entero:    TOK_ENTERO{$$ = $1;}
 
 %%
 int main(){
-    return(yyparse());
+    FILE *file = fopen("entrada.txt", "r");
+    yyin = file;
+    yyparse();
+    fclose(yyin);
 }
 
 void yyerror(char* s){
