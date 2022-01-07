@@ -1,22 +1,29 @@
 %{
 #include <stdio.h>
 extern FILE *yyin;
+
 %}
 %union{
     int entero;
+    char *nombre;
 }
 %token <entero> TOK_ENTERO
 %token TOK_OPERAR
 %token TOK_PARAPERTURA
 %token TOK_PARCIERRE
 %token TOK_PTCOMA
+%token TOK_PREGUNTA
+%token <nombre>TOK_NOMBRE
 
 %start inicio
 
 %left '+' '-'
 %left '*' 
 
+
+//noterminal
 %type <entero> expresion_entero
+%type <nombre> respuesta
 
 %%
 inicio:   instrucciones { return 0;}
@@ -26,9 +33,13 @@ instrucciones: instruccion instrucciones
         | instruccion
     ;
 
-instruccion:    TOK_OPERAR TOK_PARAPERTURA expresion TOK_PARCIERRE TOK_PTCOMA { }
+instruccion:    TOK_OPERAR TOK_PARAPERTURA expresion TOK_PARCIERRE TOK_PTCOMA
+                | respuesta
   ;  
 
+respuesta:
+    TOK_PREGUNTA TOK_NOMBRE TOK_PTCOMA{ printf("%s\n",$2);  }
+;
 
 expresion:          expresion_entero{printf("EL RESULTADO DE UNA OPERACION CON ENTEROS ES: %d\n",$1);}
                     ;

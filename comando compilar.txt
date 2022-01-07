@@ -1,0 +1,13 @@
+flex
+flex calc.l 
+
+bison
+bison -d -y calc.y 
+
+compilar
+gcc -Wall -o calc lex.yy.c y.tab.c 
+
+
+
+
+

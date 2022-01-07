@@ -7,6 +7,7 @@
 
 
 %option noyywrap
+%option caseless
 
 blanco          [ \t\r\f\n]+
 entero          [0-9]+
@@ -15,8 +16,8 @@ parapertura     "("
 parcierre       ")"
 operador        "+"|"-"|"*"
 ptcoma          ";"
-
-
+nombre          [A-Za-z]+[_0-9A-Za-z]*
+pregunta        "Cual es tu nombre:"
 %%
 
 
@@ -28,6 +29,9 @@ ptcoma          ";"
 {parcierre}     {return TOK_PARCIERRE;}
 {operador}      {return yytext[0];}
 {ptcoma}      {return TOK_PTCOMA;}
+{nombre}        {yylval.nombre = strdup(yytext); return TOK_NOMBRE;}
+{pregunta}        {return TOK_PREGUNTA;}
+
 .               {printf("ERROR LEXICO\n");
                  return TOK_ERROR;}
 

@@ -1,3 +1,4 @@
-operar(10*5+5-20);
+Cual es tu nombre: Carlos;
+OPERAR(10*5+5-20);
 operar(10+5);
-operar(1203+1200);
+opErAR(1203+1200);
